@@ -201,7 +201,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             proof = prove_seq_step(Some(proof), &pp, &tr).expect("error proving step");
             steps_proven += 1;
 
-            let progress_duration = progress_time.elapsed();
+            let progress_duration = progress_time.elapsed() / 3;
             let proof_cycles_hertz = k as f64 * 1000.0 / progress_duration.as_millis() as f64;
 
             //update the queued variables
@@ -328,7 +328,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     .expect("failed to compress proof");
                 encoder.finish().expect("failed to finish encoder");
 
-                let total_duration = start_time.elapsed();
+                let total_duration = start_time.elapsed() / 3;
                 let total_minutes = total_duration.as_secs() as f64 / 60.0;
                 let cycles_proved = steps_proven * k;
                 let proof_cycles_per_minute = cycles_proved as f64 / total_minutes;
